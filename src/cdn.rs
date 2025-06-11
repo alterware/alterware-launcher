@@ -195,12 +195,8 @@ pub struct Hosts {
 
 impl Hosts {
     /// create new rated hosts instance
-    pub async fn new(use_iw4x_cdns: bool) -> Self {
-        let cdn_hosts = if use_iw4x_cdns {
-            crate::global::IW4X_CDN_HOSTS.to_vec()
-        } else {
-            crate::global::CDN_HOSTS.to_vec()
-        };
+    pub async fn new() -> Self {
+        let cdn_hosts = crate::global::CDN_HOSTS.to_vec();
 
         let mut hosts = Hosts {
             servers: cdn_hosts,
@@ -276,7 +272,7 @@ impl Hosts {
 }
 
 /// CDN rating function for --rate flag
-pub async fn rate_cdns_and_display(use_iw4x_cdns: bool) {
+pub async fn rate_cdns_and_display() {
     use colored::Colorize;
 
     let (asn, region_str) = crate::http::get_location_info().await;
@@ -293,11 +289,7 @@ pub async fn rate_cdns_and_display(use_iw4x_cdns: bool) {
 
     println!("Rating CDNs...");
 
-    let cdn_hosts = if use_iw4x_cdns {
-        crate::global::IW4X_CDN_HOSTS.to_vec()
-    } else {
-        crate::global::CDN_HOSTS.to_vec()
-    };
+    let cdn_hosts = crate::global::CDN_HOSTS.to_vec();
 
     let mut hosts = Hosts {
         servers: cdn_hosts,

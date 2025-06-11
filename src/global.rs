@@ -19,11 +19,6 @@ pub const CDN_HOSTS: [Server; 2] = [
     Server::new("us-cdn.alterware.ovh", Region::NorthAmerica),
 ];
 
-pub const IW4X_CDN_HOSTS: [Server; 2] = [
-    Server::new("cdn.iw4x.dev", Region::Europe),
-    Server::new("cf-cdn.iw4x.dev", Region::Global),
-];
-
 pub const IP2ASN: &str = "https://ip2asn.getserve.rs/v1/as/ip/self";
 
 pub static USER_AGENT: Lazy<String> = Lazy::new(|| {
@@ -87,12 +82,10 @@ pub static PREFIXES: Lazy<HashMap<&'static str, PrintPrefix>> = Lazy::new(|| {
     ])
 });
 
-pub async fn check_connectivity_and_rate_cdns(
-    use_iw4x_cdns: bool,
-) -> Pin<Box<dyn Future<Output = bool> + Send>> {
+pub async fn check_connectivity_and_rate_cdns() -> Pin<Box<dyn Future<Output = bool> + Send>> {
     Box::pin(async move {
         crate::println_info!("Initializing CDN rating system...");
-        let hosts = Hosts::new(use_iw4x_cdns).await;
+        let hosts = Hosts::new().await;
         let best_cdn = hosts.get_master_url();
 
         if let Some(cdn_url) = best_cdn {
@@ -135,7 +128,7 @@ pub fn check_connectivity(
                 }
             }
         } else {
-            check_connectivity_and_rate_cdns(false).await.await
+            check_connectivity_and_rate_cdns().await.await
         }
     })
 }

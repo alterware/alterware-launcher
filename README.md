@@ -4,7 +4,7 @@
 
 #### Official launcher for AlterWare Call of Duty mods
 
-##### IW4x | IW4-SP | IW5-Mod | IW6-Mod | S1-Mod
+##### IW4-SP | IW5-Mod | IW6-Mod | S1-Mod
 
 ![GitHub tag (with filter)](https://img.shields.io/github/v/tag/alterware/alterware-launcher?filter=!v*-pre&style=flat-square&label=Latest%20release&labelColor=F3F8FF&color=E26EE5) ![GitHub (Pre-)Release Date](https://img.shields.io/github/release-date-pre/alterware/alterware-launcher?style=flat-square&label=Release%20date&labelColor=F3F8FF&color=E26EE5) ![GitHub all releases](https://img.shields.io/github/downloads/alterware/alterware-launcher/total?style=flat-square&label=Total%20downloads&labelColor=F3F8FF&color=E26EE5)
 </div>
@@ -100,9 +100,6 @@
 > [!IMPORTANT]
 > **Only legitimate copies of the games are supported. If you don't own the game, please buy it.**
 
-> **IW4x**  
-> Call of Duty: Modern Warfare 2 - Multiplayer
-
 > **IW4-SP**  
 > Call of Duty: Modern Warfare 2 - Singeplayer
 
@@ -119,7 +116,7 @@
 
 ## ⚙️ Command line arguments
 
-- ```iw4-sp```, ```iw4x```, ```iw5-mod```, ```iw6-mod```, ```s1-mod```
+- ```iw4-sp```, ```iw5-mod```, ```iw6-mod```, ```s1-mod```
   - Skip automatic detection and launch the specified game
     - Must be the first argument if used
 - ```--help```
@@ -149,7 +146,7 @@
 - ```--redist```
   - Install or reinstall redistributables
 - ```--prerelease```
-  - Update to prerelease version of clients (currently only available for IW4x) and launcher
+  - Update to prerelease version of the launcher
 - ```--rate```
   - Rate and display CDN servers
 - ```--cdn-url```
@@ -159,7 +156,7 @@
 
 ##### Example:
 ```shell
-alterware-launcher.exe iw4x --bonus -u --path "C:\Games\IW4x" --pass "-console"
+alterware-launcher.exe iw6 --bonus -u --path "C:\Games\IW6x" --pass "-headless"
 ```
 > [!TIP]
 > Some arguments can be set in alterware-launcher.json, args generally override the values of the config.

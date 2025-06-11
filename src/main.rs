@@ -667,9 +667,7 @@ async fn main() {
         println!("    --offline: Run in offline mode");
         println!("    --skip-connectivity-check: Don't check connectivity");
         println!("    --rate: Display CDN rating information and exit");
-        println!(
-            "\nExample:\n    alterware-launcher.exe iw4x --bonus --pass \"-console -nointro\""
-        );
+        println!("\nExample:\n    alterware-launcher.exe iw6 --pass \"-headless\"");
         return;
     }
 
@@ -705,7 +703,7 @@ async fn main() {
     }
 
     if arg_bool(&args, "--rate") {
-        cdn::rate_cdns_and_display(false).await;
+        cdn::rate_cdns_and_display().await;
         return;
     }
 
@@ -737,7 +735,7 @@ async fn main() {
         if initial_cdn.is_some() {
             cfg.offline = !global::check_connectivity(initial_cdn).await;
         } else {
-            cfg.offline = !global::check_connectivity_and_rate_cdns(false).await.await;
+            cfg.offline = !global::check_connectivity_and_rate_cdns().await.await;
         }
     }
 
