@@ -39,8 +39,7 @@
 4. Run `alterware-launcher.exe`. After updating, the game will launch automatically.
 
 > [!NOTE]
-> Windows 7 is no longer supported. [v0.6.12](https://github.com/alterware/alterware-launcher/releases/tag/v0.6.12) is the last version that will run on Windows 7.
-> To keep using it, set `"skip_self_update": true` in the `alterware-launcher.json` config file.
+> Windows 7 is no longer supported.
 
 > [!IMPORTANT]
 > ### Information for server owners:
