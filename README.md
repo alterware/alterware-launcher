@@ -6,7 +6,7 @@
 
 ##### IW4x | IW4-SP | IW5-Mod | IW6-Mod | S1-Mod
 
-![GitHub tag (with filter)](https://img.shields.io/github/v/tag/mxve/alterware-launcher?filter=!v*-pre&style=flat-square&label=Latest%20release&labelColor=F3F8FF&color=E26EE5) ![GitHub (Pre-)Release Date](https://img.shields.io/github/release-date-pre/mxve/alterware-launcher?style=flat-square&label=Release%20date&labelColor=F3F8FF&color=E26EE5) ![GitHub all releases](https://img.shields.io/github/downloads/mxve/alterware-launcher/total?style=flat-square&label=Total%20downloads&labelColor=F3F8FF&color=E26EE5)
+![GitHub tag (with filter)](https://img.shields.io/github/v/tag/alterware/alterware-launcher?filter=!v*-pre&style=flat-square&label=Latest%20release&labelColor=F3F8FF&color=E26EE5) ![GitHub (Pre-)Release Date](https://img.shields.io/github/release-date-pre/alterware/alterware-launcher?style=flat-square&label=Release%20date&labelColor=F3F8FF&color=E26EE5) ![GitHub all releases](https://img.shields.io/github/downloads/alterware/alterware-launcher/total?style=flat-square&label=Total%20downloads&labelColor=F3F8FF&color=E26EE5)
 </div>
 
 > [!IMPORTANT]
@@ -33,19 +33,19 @@
 ### 🪟 Windows
 1. Download the game from [Steam](https://store.steampowered.com/).
 2. Download the appropriate version of the AlterWare launcher:
-   - **Windows 64-bit**: Download the [latest alterware-launcher.exe](https://github.com/mxve/alterware-launcher/releases/latest/download/alterware-launcher.exe).
-   - **Windows 32-bit**: Download the [latest alterware-launcher-x86.exe](https://github.com/mxve/alterware-launcher/releases/latest/download/alterware-launcher-x86.exe).
+   - **Windows 64-bit**: Download the [latest alterware-launcher.exe](https://github.com/alterware/alterware-launcher/releases/latest/download/alterware-launcher.exe).
+   - **Windows 32-bit**: Download the [latest alterware-launcher-x86.exe](https://github.com/alterware/alterware-launcher/releases/latest/download/alterware-launcher-x86.exe).
 3. Place the `alterware-launcher.exe` in the game directory.
 4. Run `alterware-launcher.exe`. After updating, the game will launch automatically.
 
 > [!NOTE]
-> Windows 7 is no longer supported. [v0.6.12](https://github.com/mxve/alterware-launcher/releases/tag/v0.6.12) is the last version that will run on Windows 7.
+> Windows 7 is no longer supported. [v0.6.12](https://github.com/alterware/alterware-launcher/releases/tag/v0.6.12) is the last version that will run on Windows 7.
 > To keep using it, set `"skip_self_update": true` in the `alterware-launcher.json` config file.
 
 > [!IMPORTANT]
 > ### Information for server owners:
 > On Windows, the launcher self-updates and restarts by spawning a new console.
-> For automated processes, use `--skip-launcher-update` and manually download the latest launcher from [here](https://github.com/mxve/alterware-launcher/releases/latest/download/alterware-launcher.exe).
+> For automated processes, use `--skip-launcher-update` and manually download the latest launcher from [here](https://github.com/alterware/alterware-launcher/releases/latest/download/alterware-launcher.exe).
 
 ---
 
@@ -69,8 +69,8 @@
 ### 🐧 Other Linux OS
 
 1. Download the game from Steam using either [SteamCMD](https://developer.valvesoftware.com/wiki/SteamCMD) or the official Steam desktop app.
-2. Download the [latest release](https://github.com/mxve/alterware-launcher/releases/latest) corresponding to your system architecture.
-    - Most likely you want [alterware-launcher-x86_64-unknown-linux-gnu.tar.gz](https://github.com/mxve/alterware-launcher/releases/latest/download/alterware-launcher-x86_64-unknown-linux-gnu.tar.gz)
+2. Download the [latest release](https://github.com/alterware/alterware-launcher/releases/latest) corresponding to your system architecture.
+    - Most likely you want [alterware-launcher-x86_64-unknown-linux-gnu.tar.gz](https://github.com/alterware/alterware-launcher/releases/latest/download/alterware-launcher-x86_64-unknown-linux-gnu.tar.gz)
 3. Unpack the archive and copy the `alterware-launcher` executable to your game directory.
     - Alternatively, you can place it in your `PATH` so you can run it from anywhere. For example, in `/usr/local/bin/`
 4. Make the launcher executable: `chmod +x alterware-launcher`
@@ -87,7 +87,7 @@
 ### 🍎 macOS
 
 1. Download the game from Steam using either [SteamCMD](https://developer.valvesoftware.com/wiki/SteamCMD) or the official Steam desktop app.
-2. Download the [latest alterware-launcher](https://github.com/mxve/alterware-launcher/releases/latest/download/alterware-launcher-universal-apple-darwin.tar.gz).
+2. Download the [latest alterware-launcher](https://github.com/alterware/alterware-launcher/releases/latest/download/alterware-launcher-universal-apple-darwin.tar.gz).
 3. Once installed, run the launcher from your game directory to download the client files automatically. For updates, use the launcher from the terminal with the `--update` command-line argument as explained in [this guide](https://forum.alterware.dev/t/all-clients-useful-info-for-running-our-mods-under-linux/343).
 
 > [!CAUTION]

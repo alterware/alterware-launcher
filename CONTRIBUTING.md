@@ -15,7 +15,7 @@ We welcome contributions to the AlterWare Launcher! Here are some guidelines to 
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/mxve/alterware-launcher.git
+   git clone https://github.com/alterware/alterware-launcher.git
    cd alterware-launcher
    ```
 
