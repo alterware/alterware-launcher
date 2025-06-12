@@ -622,6 +622,16 @@ fn arg_remove_value(args: &mut Vec<String>, arg: &str) {
     };
 }
 
+fn show_iw4x_info() {
+    println!(
+        "{}",
+        "IW4x is not provided through AlterWare anymore.".bright_red()
+    );
+    println!("Please use iw4x-launcher.exe instead or visit www.iw4x.dev/install");
+    misc::stdin();
+    std::process::exit(0);
+}
+
 #[tokio::main]
 async fn main() {
     #[cfg(windows)]
@@ -647,6 +657,10 @@ async fn main() {
     setup_env();
 
     let mut args: Vec<String> = env::args().collect();
+
+    if args.iter().any(|arg| arg == "iw4x") {
+        show_iw4x_info();
+    }
 
     if arg_bool(&args, "--help") {
         println!("CLI Args:");
@@ -914,6 +928,10 @@ async fn main() {
                 }
             }
         }
+    }
+
+    if game == "iw4x" {
+        show_iw4x_info();
     }
 
     for g in games.iter() {
