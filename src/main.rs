@@ -549,9 +549,9 @@ fn launch(file_path: &PathBuf, args: &str) {
 fn launch(file_path: &PathBuf, args: &str) {
     println!("\n\nJoin the AlterWare Discord server:\nhttps://discord.gg/2ETE8engZM\n\n");
     crate::println_info!("Launching {} {args}", file_path.display());
-    let exit_status = if misc::is_program_in_path("wine") {
-        println!("Found wine, launching game using wine.\nIf you run into issues or want to launch a different way, run {} manually.", file_path.display());
-        std::process::Command::new("wine")
+    let exit_status = if misc::is_program_in_path("umu-run") {
+        println!("Found umu, launching game using umu.\nIf you run into issues or want to launch a different way, run {} manually.", file_path.display());
+        std::process::Command::new("umu-run")
             .args([file_path.to_str().unwrap(), args.trim()])
             .current_dir(file_path.parent().unwrap())
             .spawn()
