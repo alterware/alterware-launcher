@@ -549,9 +549,18 @@ fn launch(file_path: &PathBuf, args: &str) {
 fn launch(file_path: &PathBuf, args: &str) {
     println!("\n\nJoin the AlterWare Discord server:\nhttps://discord.gg/2ETE8engZM\n\n");
     crate::println_info!("Launching {} {args}", file_path.display());
-    let exit_status = if misc::is_program_in_path("umu-run") {
-        println!("Found umu, launching game using umu.\nIf you run into issues or want to launch a different way, run {} manually.", file_path.display());
-        std::process::Command::new("umu-run")
+
+    let launcher = if misc::is_program_in_path("umu-run") {
+        Some("umu-run")
+    } else if misc::is_program_in_path("wine") {
+        Some("wine")
+    } else {
+        None
+    };
+
+    let exit_status = if let Some(launcher) = launcher {
+        println!("Found {launcher}, launching game using {launcher}.\nIf you run into issues or want to launch a different way, run {} manually.", file_path.display());
+        std::process::Command::new(launcher)
             .args([file_path.to_str().unwrap(), args.trim()])
             .current_dir(file_path.parent().unwrap())
             .spawn()
