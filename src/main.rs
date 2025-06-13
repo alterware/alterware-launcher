@@ -636,7 +636,7 @@ fn show_iw4x_info() {
         "{}",
         "IW4x is not provided through AlterWare anymore.".bright_red()
     );
-    println!("Please use iw4x-launcher.exe instead or visit www.iw4x.dev/install");
+    println!("Please visit https://aka.alterware.dev/iw4x for more information");
     misc::stdin();
     std::process::exit(0);
 }
