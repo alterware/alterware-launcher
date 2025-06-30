@@ -284,7 +284,7 @@ pub async fn rate_cdns_and_display() {
             "Unknown".bright_red()
         );
     } else {
-        println!("User region: {:?}", user_region);
+        println!("User region: {user_region:?}");
     }
 
     println!("Rating CDNs...");

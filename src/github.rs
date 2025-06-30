@@ -17,17 +17,13 @@ pub async fn latest_tag_full(
     repo: &str,
 ) -> Result<String, Box<dyn std::error::Error>> {
     let github_body = crate::http_async::get_body_string(
-        format!(
-            "https://api.github.com/repos/{}/{}/releases/latest",
-            owner, repo
-        )
-        .as_str(),
+        format!("https://api.github.com/repos/{owner}/{repo}/releases/latest").as_str(),
     )
     .await
-    .map_err(|e| format!("Failed to fetch GitHub API: {}", e))?;
+    .map_err(|e| format!("Failed to fetch GitHub API: {e}"))?;
 
     let github_json: serde_json::Value = serde_json::from_str(&github_body)
-        .map_err(|e| format!("Failed to parse GitHub API response: {}", e))?;
+        .map_err(|e| format!("Failed to parse GitHub API response: {e}"))?;
 
     let tag_name = github_json
         .get("tag_name")
@@ -43,13 +39,13 @@ pub async fn latest_tag_prerelease(
     repo: &str,
 ) -> Result<String, Box<dyn std::error::Error>> {
     let github_body = crate::http_async::get_body_string(
-        format!("https://api.github.com/repos/{}/{}/releases", owner, repo).as_str(),
+        format!("https://api.github.com/repos/{owner}/{repo}/releases").as_str(),
     )
     .await
-    .map_err(|e| format!("Failed to fetch GitHub API: {}", e))?;
+    .map_err(|e| format!("Failed to fetch GitHub API: {e}"))?;
 
     let github_json: serde_json::Value = serde_json::from_str(&github_body)
-        .map_err(|e| format!("Failed to parse GitHub API response: {}", e))?;
+        .map_err(|e| format!("Failed to parse GitHub API response: {e}"))?;
 
     let latest_release = github_json.get(0).ok_or("No releases found")?;
 

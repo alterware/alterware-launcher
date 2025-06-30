@@ -12,13 +12,6 @@ pub fn stdin() -> String {
     input.trim().to_string()
 }
 
-pub fn rev_to_int(rev: &str) -> u16 {
-    rev.strip_prefix('r')
-        .unwrap_or("0")
-        .parse::<u16>()
-        .unwrap_or(0)
-}
-
 pub fn human_readable_bytes(bytes: u64) -> String {
     let mut bytes = bytes as f64;
     let mut i = 0;

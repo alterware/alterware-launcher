@@ -15,7 +15,7 @@ pub fn save_cache(dir: &Path, cache: Cache) {
     let cache_path = dir.join("awcache.json");
     let cache_serialized = serde_json::to_string_pretty(&cache).unwrap();
     fs::write(cache_path, cache_serialized).unwrap_or_else(|e| {
-        error!("Failed to save cache: {}", e);
+        error!("Failed to save cache: {e}");
     });
 }
 

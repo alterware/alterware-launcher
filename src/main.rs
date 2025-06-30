@@ -6,7 +6,6 @@ mod github;
 mod global;
 mod http;
 mod http_async;
-mod iw4x;
 mod misc;
 mod self_update;
 mod structs;
@@ -28,7 +27,7 @@ use mslnk::ShellLink;
 use simple_log::LogConfigBuilder;
 use std::{
     borrow::Cow,
-    collections::{HashMap, HashSet},
+    collections::HashMap,
     env, fs,
     path::{Path, PathBuf},
 };
@@ -117,7 +116,7 @@ fn setup_desktop_links(path: &Path, game: &Game) {
 async fn auto_install(path: &Path, game: &Game<'_>) {
     setup_client_links(game, path);
     setup_desktop_links(path, game);
-    update(game, path, false, false, None, None, None).await;
+    update(game, path, false, false, None).await;
 }
 
 #[cfg(windows)]
@@ -187,7 +186,7 @@ fn total_download_size(cdn_info: &Vec<CdnFile>, remote_dir: &str) -> u64 {
     let remote_dir = format!("{remote_dir}/");
     let mut size: u64 = 0;
     for file in cdn_info {
-        if !file.name.starts_with(&remote_dir) || file.name == "iw4/iw4x.dll" {
+        if !file.name.starts_with(&remote_dir) {
             continue;
         }
         size += file.size as u64;
@@ -201,7 +200,6 @@ async fn update_dir(
     dir: &Path,
     hashes: &mut HashMap<String, String>,
     pb: &ProgressBar,
-    skip_iw4x_sp: bool,
 ) {
     misc::pb_style_download(pb, false);
 
@@ -210,10 +208,7 @@ async fn update_dir(
     let mut files_to_download: Vec<CdnFile> = vec![];
 
     for file in cdn_info {
-        if !file.name.starts_with(&remote_dir_pre) || file.name == "iw4/iw4x.dll" {
-            continue;
-        }
-        if skip_iw4x_sp && file.name == "iw4/iw4x-sp.exe" {
+        if !file.name.starts_with(&remote_dir_pre) {
             continue;
         }
 
@@ -337,15 +332,12 @@ async fn update(
     dir: &Path,
     bonus_content: bool,
     force: bool,
-    skip_iw4x_sp: Option<bool>,
     ignore_required_files: Option<bool>,
-    prerelease: Option<bool>,
 ) {
     info!("Starting update for game engine: {}", game.engine);
     info!("Update path: {}", dir.display());
     debug!("Bonus content: {}, Force update: {}", bonus_content, force);
 
-    let skip_iw4x_sp = skip_iw4x_sp.unwrap_or(false);
     let ignore_required_files = ignore_required_files.unwrap_or(false);
 
     let res =
@@ -405,66 +397,12 @@ async fn update(
         }
     }
 
-    if game.engine == "iw4" {
-        iw4x::update(dir, &mut cache, prerelease).await;
-
-        let scan_dirs = ["iw4x", "zone/patch"];
-        let valid_files: HashSet<_> = cdn_info
-            .iter()
-            .filter_map(|cdn_file| {
-                if cdn_file.name.starts_with("iw4/") || cdn_file.name.starts_with("iw4-dlc/") {
-                    Some(Path::new(&cdn_file.name).to_path_buf())
-                } else {
-                    None
-                }
-            })
-            .collect();
-
-        for scan_dir in scan_dirs.iter() {
-            let full_scan_dir = dir.join(scan_dir);
-            if !full_scan_dir.exists() || !full_scan_dir.is_dir() {
-                continue;
-            }
-
-            for entry in walkdir::WalkDir::new(&full_scan_dir)
-                .into_iter()
-                .filter_map(Result::ok)
-                .filter(|e| e.file_type().is_file())
-            {
-                let rel_path = entry.path().strip_prefix(dir).unwrap_or(entry.path());
-                let cdn_paths = [
-                    Path::new("iw4").join(rel_path),
-                    Path::new("iw4-dlc").join(rel_path),
-                ];
-
-                if !cdn_paths.iter().any(|path| valid_files.contains(path)) {
-                    crate::println_info!("{}{}", misc::prefix("removed"), entry.path().cute_path());
-                    if std::fs::remove_file(entry.path()).is_err() {
-                        crate::println_error!(
-                            "{}Couldn't delete {}",
-                            misc::prefix("error"),
-                            entry.path().cute_path()
-                        );
-                    }
-                }
-            }
-        }
-    }
-
     let pb = ProgressBar::new(0);
-    update_dir(
-        &cdn_info,
-        game.engine,
-        dir,
-        &mut cache.hashes,
-        &pb,
-        skip_iw4x_sp,
-    )
-    .await;
+    update_dir(&cdn_info, game.engine, dir, &mut cache.hashes, &pb).await;
 
     if bonus_content && !game.bonus.is_empty() {
         for bonus in game.bonus.iter() {
-            update_dir(&cdn_info, bonus, dir, &mut cache.hashes, &pb, skip_iw4x_sp).await;
+            update_dir(&cdn_info, bonus, dir, &mut cache.hashes, &pb).await;
         }
     }
 
@@ -953,14 +891,6 @@ async fn main() {
                         "engine",
                         cfg.engine.clone(),
                     );
-                    if cfg.engine == "iw4" && cfg.args.is_empty() {
-                        cfg.args = String::from("-stdout");
-                        config::save_value_s(
-                            install_path.join("alterware-launcher.json"),
-                            "args",
-                            cfg.args.clone(),
-                        );
-                    }
 
                     #[cfg(windows)]
                     if !cfg.skip_redist {
@@ -989,9 +919,7 @@ async fn main() {
                     install_path.as_path(),
                     cfg.download_bonus_content,
                     cfg.force_update,
-                    Some(&game != "iw4x-sp"),
                     Some(ignore_required_files),
-                    Some(cfg.prerelease),
                 )
                 .await;
                 if !cfg.update_only {

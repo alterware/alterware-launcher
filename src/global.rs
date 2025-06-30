@@ -10,8 +10,6 @@ use crate::cdn::{Hosts, Region, Server};
 
 pub const GH_OWNER: &str = "alterware";
 pub const GH_REPO: &str = "alterware-launcher";
-pub const GH_IW4X_OWNER: &str = "iw4x";
-pub const GH_IW4X_REPO: &str = "iw4x-client";
 pub const DEFAULT_MASTER: &str = "https://cdn.alterware.ovh";
 
 pub const CDN_HOSTS: [Server; 2] = [
