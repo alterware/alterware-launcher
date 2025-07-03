@@ -64,8 +64,8 @@ pub async fn rating_request(
     let latency = start.elapsed();
 
     if let Err(e) = &res {
-        error!("Failed to get {}: {} (after {:?})", url, e, latency);
-        return Err(format!("Failed to get {} {} (after {:?})", url, e, latency).into());
+        error!("Failed to get {url}: {e} (after {latency:?})");
+        return Err(format!("Failed to get {url} {e} (after {latency:?})").into());
     }
 
     let res = res.unwrap();
@@ -74,17 +74,11 @@ pub async fn rating_request(
 
     // We don't need the response body for rating
     if let Err(e) = res.text().await {
-        warn!(
-            "Failed to get response text from {}: {} (after {:?})",
-            url, e, latency
-        );
+        warn!("Failed to get response text from {url}: {e} (after {latency:?})");
         return Err(e.into());
     }
 
-    info!(
-        "Successfully rated {} in {:?} (cloudflare: {})",
-        url, latency, is_cloudflare
-    );
+    info!("Successfully rated {url} in {latency:?} (cloudflare: {is_cloudflare})");
     Ok((latency, is_cloudflare))
 }
 

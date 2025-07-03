@@ -53,7 +53,7 @@ pub fn is_program_in_path(program: &str) -> bool {
         .and_then(|paths| {
             paths.to_str().map(|paths| {
                 paths.split(';').any(|dir| {
-                    fs::metadata(format!("{}\\{}.exe", dir, program)).is_ok()
+                    fs::metadata(format!("{dir}\\{program}.exe")).is_ok()
                         || fs::metadata(format!("{dir}\\{program}.cmd")).is_ok()
                         || fs::metadata(format!("{dir}\\{program}.bat")).is_ok()
                 })
