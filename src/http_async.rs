@@ -32,7 +32,7 @@ pub async fn download_file_progress(
         .send()
         .await
         .map_err(|e| {
-            error!("Failed to GET from '{}': {}", url, e);
+            error!("Failed to GET from '{url}': {e}");
             format!("Failed to GET from '{url}'")
         })?;
 
@@ -89,14 +89,14 @@ pub async fn get_body(url: &str) -> Result<Vec<u8>, String> {
         )
         .send()
         .await
-        .map_err(|e| format!("Failed to send request: {}", e))?;
+        .map_err(|e| format!("Failed to send request: {e}"))?;
 
     debug!("{} {url}", res.status());
 
     res.bytes()
         .await
         .map(|b| b.to_vec())
-        .map_err(|e| format!("Failed to get body: {}", e))
+        .map_err(|e| format!("Failed to get body: {e}"))
 }
 
 pub async fn get_body_string(url: &str) -> Result<String, String> {
@@ -119,7 +119,7 @@ pub async fn get_json<T: serde::de::DeserializeOwned>(url: &str) -> Result<T, St
         .header("Accept", "application/json")
         .send()
         .await
-        .map_err(|e| format!("Failed to send request: {}", e))?;
+        .map_err(|e| format!("Failed to send request: {e}"))?;
 
     debug!("{} {}", res.status(), url);
 
@@ -130,7 +130,7 @@ pub async fn get_json<T: serde::de::DeserializeOwned>(url: &str) -> Result<T, St
     let body = res
         .bytes()
         .await
-        .map_err(|e| format!("Failed to read response body: {}", e))?;
+        .map_err(|e| format!("Failed to read response body: {e}"))?;
 
-    serde_json::from_slice::<T>(&body).map_err(|e| format!("Failed to parse JSON: {}", e))
+    serde_json::from_slice::<T>(&body).map_err(|e| format!("Failed to parse JSON: {e}"))
 }

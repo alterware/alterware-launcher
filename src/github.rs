@@ -66,7 +66,7 @@ pub async fn latest_version(
     let tag = latest_tag(owner, repo, prerelease).await?;
     let cleaned_tag = tag.replace('v', "");
     Version::parse(&cleaned_tag)
-        .map_err(|e| format!("Failed to parse version '{}': {}", cleaned_tag, e).into())
+        .map_err(|e| format!("Failed to parse version '{cleaned_tag}': {e}").into())
 }
 
 pub fn download_url(owner: &str, repo: &str, tag: Option<&str>) -> String {

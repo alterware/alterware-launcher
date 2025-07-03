@@ -15,7 +15,7 @@ pub async fn self_update_available(prerelease: Option<bool>) -> bool {
     let latest_version = match github::latest_version(GH_OWNER, GH_REPO, prerelease).await {
         Ok(v) => v,
         Err(e) => {
-            error!("Failed to get latest version: {}", e);
+            error!("Failed to get latest version: {e}");
             return false;
         }
     };

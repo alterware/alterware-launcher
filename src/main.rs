@@ -763,9 +763,9 @@ async fn main() {
             std::process::exit(1);
         };
 
-        info!("Launching game in offline mode with client: {}", client);
+        info!("Launching game in offline mode with client: {client}");
         // Launch game without updates
-        launch(&install_path.join(format!("{}.exe", client)), &cfg.args);
+        launch(&install_path.join(format!("{client}.exe")), &cfg.args);
         return;
     }
 

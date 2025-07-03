@@ -17,18 +17,18 @@ pub async fn quick_request(url: &str) -> Result<String, Box<dyn std::error::Erro
         .await;
 
     if let Err(e) = &res {
-        error!("Failed to get {}: {}", url, e);
-        return Err(format!("Failed to get {} {}", url, e).into());
+        error!("Failed to get {url}: {e}");
+        return Err(format!("Failed to get {url} {e}").into());
     }
 
     let res = res.unwrap();
     match res.text().await {
         Ok(text) => {
-            info!("Successfully received response from: {}", url);
+            info!("Successfully received response from: {url}");
             Ok(text)
         }
         Err(e) => {
-            warn!("Failed to get response text from {}: {}", url, e);
+            warn!("Failed to get response text from {url}: {e}");
             Err(e.into())
         }
     }

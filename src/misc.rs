@@ -41,7 +41,7 @@ pub fn is_program_in_path(program: &str) -> bool {
             paths.to_str().map(|paths| {
                 paths
                     .split(':')
-                    .any(|dir| fs::metadata(format!("{}/{}", dir, program)).is_ok())
+                    .any(|dir| fs::metadata(format!("{dir}/{program}")).is_ok())
             })
         })
         .unwrap_or(false)
@@ -54,8 +54,8 @@ pub fn is_program_in_path(program: &str) -> bool {
             paths.to_str().map(|paths| {
                 paths.split(';').any(|dir| {
                     fs::metadata(format!("{}\\{}.exe", dir, program)).is_ok()
-                        || fs::metadata(format!("{}\\{}.cmd", dir, program)).is_ok()
-                        || fs::metadata(format!("{}\\{}.bat", dir, program)).is_ok()
+                        || fs::metadata(format!("{dir}\\{program}.cmd")).is_ok()
+                        || fs::metadata(format!("{dir}\\{program}.bat")).is_ok()
                 })
             })
         })
