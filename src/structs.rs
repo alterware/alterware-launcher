@@ -54,8 +54,6 @@ pub struct Config {
     pub cdn_url: String,
     #[serde(default)]
     pub offline: bool,
-    #[serde(default)]
-    pub skip_connectivity_check: bool,
 }
 
 impl Default for Config {
@@ -73,7 +71,6 @@ impl Default for Config {
             prerelease: false,
             cdn_url: String::default(),
             offline: false,
-            skip_connectivity_check: false,
         }
     }
 }

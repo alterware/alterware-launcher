@@ -148,7 +148,6 @@
   - Update to prerelease version of the launcher
 - ```--cdn-url```
 - ```--offline```
-- ```--skip-connectivity-check```
 
 
 ##### Example:
@@ -173,7 +172,6 @@ alterware-launcher.exe iw6 --bonus -u --path "C:\Games\IW6x" --pass "-headless"
 - `prerelease`: Update to prerelease version of clients and launcher. Default: `false`.
 - `cdn_url`
 - `offline`
-- `skip-connectivity-check`
 
 ---
 

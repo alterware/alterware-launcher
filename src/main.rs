@@ -626,7 +626,6 @@ async fn main() {
         println!("    --redist: (Re-)Install redistributables");
         println!("    --prerelease: Update to prerelease version of clients and launcher");
         println!("    --offline: Run in offline mode");
-        println!("    --skip-connectivity-check: Don't check connectivity");
         println!("\nExample:\n    alterware-launcher.exe iw6 --pass \"-headless\"");
         return;
     }
@@ -674,25 +673,12 @@ async fn main() {
         arg_remove(&mut args, "--offline");
     }
 
-    if arg_bool(&args, "--skip-connectivity-check") {
-        cfg.skip_connectivity_check = true;
-        arg_remove(&mut args, "--skip-connectivity-check");
-    }
-
     let initial_cdn = if !cfg.cdn_url.is_empty() {
         info!("Using custom CDN URL: {}", cfg.cdn_url);
         Some(cfg.cdn_url.clone())
     } else {
         None
     };
-
-    if !cfg.offline && !cfg.skip_connectivity_check {
-        if initial_cdn.is_some() {
-            cfg.offline = !global::check_connectivity(initial_cdn).await;
-        } else {
-            cfg.offline = !global::check_connectivity_and_rate_cdns().await.await;
-        }
-    }
 
     if cfg.offline {
         // Check if this is a first-time run (no stored data)
