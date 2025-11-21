@@ -68,13 +68,6 @@ pub async fn download_file_progress(
     Ok(())
 }
 
-pub async fn download_file(url: &str, path: &PathBuf) -> Result<(), String> {
-    let body = get_body(url).await?;
-    let mut file = File::create(path).or(Err("Failed to create file"))?;
-    file.write_all(&body).or(Err("Failed to write to file"))?;
-    Ok(())
-}
-
 pub async fn get_body(url: &str) -> Result<Vec<u8>, String> {
     let client = Client::new();
     let res = client

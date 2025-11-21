@@ -627,7 +627,6 @@ async fn main() {
         println!("    --prerelease: Update to prerelease version of clients and launcher");
         println!("    --offline: Run in offline mode");
         println!("    --skip-connectivity-check: Don't check connectivity");
-        println!("    --rate: Display CDN rating information and exit");
         println!("\nExample:\n    alterware-launcher.exe iw6 --pass \"-headless\"");
         return;
     }
@@ -661,11 +660,6 @@ async fn main() {
         arg_remove_value(&mut args, "-p");
     } else {
         install_path = env::current_dir().unwrap();
-    }
-
-    if arg_bool(&args, "--rate") {
-        cdn::rate_cdns_and_display().await;
-        return;
     }
 
     let mut cfg = config::load(install_path.join("alterware-launcher.json"));

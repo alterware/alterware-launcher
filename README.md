@@ -146,8 +146,6 @@
   - Install or reinstall redistributables
 - ```--prerelease```
   - Update to prerelease version of the launcher
-- ```--rate```
-  - Rate and display CDN servers
 - ```--cdn-url```
 - ```--offline```
 - ```--skip-connectivity-check```
