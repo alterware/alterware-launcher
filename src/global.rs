@@ -6,18 +6,16 @@ use std::future::Future;
 use std::pin::Pin;
 use std::sync::Mutex;
 
-use crate::cdn::{Hosts, Region, Server};
+use crate::cdn::{Hosts, Server};
 
 pub const GH_OWNER: &str = "alterware";
 pub const GH_REPO: &str = "alterware-launcher";
 pub const DEFAULT_MASTER: &str = "https://cdn.alterware.ovh";
 
 pub const CDN_HOSTS: [Server; 2] = [
-    Server::new("cdn.alterware.ovh", Region::Global),
-    Server::new("us-cdn.alterware.ovh", Region::NorthAmerica),
+    Server::new("cdn.alterware.ovh"),
+    Server::new("us-cdn.alterware.ovh"),
 ];
-
-pub const IP2ASN: &str = "https://ip2asn.getserve.rs/v1/as/ip/self";
 
 pub static USER_AGENT: Lazy<String> = Lazy::new(|| {
     format!(

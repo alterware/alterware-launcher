@@ -1,5 +1,4 @@
 use reqwest::header::HeaderMap;
-use serde_json::Value;
 use simple_log::*;
 use std::time::{Duration, Instant};
 
@@ -80,24 +79,4 @@ pub async fn rating_request(
 
     info!("Successfully rated {url} in {latency:?} (cloudflare: {is_cloudflare})");
     Ok((latency, is_cloudflare))
-}
-
-/// Retrieve client ASN and region
-pub async fn get_location_info() -> (u32, String) {
-    let response = quick_request(crate::global::IP2ASN).await;
-    if let Ok(as_data_str) = response {
-        if let Ok(as_data) = serde_json::from_str::<Value>(&as_data_str) {
-            let as_number = as_data
-                .get("as_number")
-                .and_then(|v| v.as_u64())
-                .unwrap_or(0) as u32;
-            let region = as_data
-                .get("region")
-                .and_then(|v| v.as_str())
-                .unwrap_or("Unknown")
-                .to_string();
-            return (as_number, region);
-        }
-    }
-    (0, "Unknown".to_string())
 }
