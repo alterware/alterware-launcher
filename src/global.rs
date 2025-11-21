@@ -29,8 +29,6 @@ pub static USER_AGENT: Lazy<String> = Lazy::new(|| {
 
 pub static MASTER_URL: Lazy<Mutex<String>> = Lazy::new(|| Mutex::new(String::from(DEFAULT_MASTER)));
 
-pub static IS_OFFLINE: Lazy<Mutex<bool>> = Lazy::new(|| Mutex::new(false));
-
 pub static PREFIXES: Lazy<HashMap<&'static str, PrintPrefix>> = Lazy::new(|| {
     HashMap::from([
         (
