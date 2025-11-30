@@ -12,10 +12,7 @@ pub const GH_OWNER: &str = "alterware";
 pub const GH_REPO: &str = "alterware-launcher";
 pub const DEFAULT_MASTER: &str = "https://cdn.alterware.ovh";
 
-pub const CDN_HOSTS: [Server; 2] = [
-    Server::new("cdn.alterware.ovh"),
-    Server::new("us-cdn.alterware.ovh"),
-];
+pub const CDN_HOSTS: [Server; 1] = [Server::new("cdn.alterware.ovh")];
 
 pub static USER_AGENT: Lazy<String> = Lazy::new(|| {
     format!(
