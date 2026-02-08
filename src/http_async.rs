@@ -36,6 +36,10 @@ pub async fn download_file_progress(
             format!("Failed to GET from '{url}'")
         })?;
 
+    if !res.status().is_success() {
+        return Err(format!("Request failed with status: {}", res.status()));
+    }
+
     let total_size = res.content_length().unwrap_or(size);
     debug!("Download size: {}", misc::human_readable_bytes(total_size));
     pb.set_length(total_size);
@@ -92,6 +96,10 @@ pub async fn get_body(url: &str) -> Result<Vec<u8>, String> {
         .map_err(|e| format!("Failed to send request: {e}"))?;
 
     debug!("{} {url}", res.status());
+
+    if !res.status().is_success() {
+        return Err(format!("Request failed with status: {}", res.status()));
+    }
 
     res.bytes()
         .await
