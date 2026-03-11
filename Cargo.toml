@@ -41,7 +41,7 @@ static_vcruntime = "3.0"
 
 [dev-dependencies]
 strip-ansi-escapes = "0.2"
-serial_test = "3.2"
+serial_test = "3.4"
 
 [package.metadata.winresource]
 OriginalFilename = "alterware-launcher.exe"
