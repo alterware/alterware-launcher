@@ -93,7 +93,7 @@ pub async fn run(update_only: bool, prerelease: Option<bool>) {
             "alterware-launcher.exe"
         };
 
-        http_async::download_file(
+        if let Err(e) = http_async::download_file(
             &format!(
                 "{}/download/{}",
                 github::download_url(GH_OWNER, GH_REPO, None),
@@ -102,7 +102,11 @@ pub async fn run(update_only: bool, prerelease: Option<bool>) {
             &file_path,
         )
         .await
-        .unwrap();
+        {
+            error!("Self-update download failed: {e}");
+            crate::println_error!("Self-update failed ({e}), skipping update.");
+            return;
+        }
 
         if !file_path.exists() {
             crate::println_error!("Failed to download launcher update.");
