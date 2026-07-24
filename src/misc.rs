@@ -1,3 +1,4 @@
+use rand::RngExt;
 use std::fs;
 #[cfg(windows)]
 use std::path::Path;
