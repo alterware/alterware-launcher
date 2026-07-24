@@ -1,6 +1,7 @@
 use std::fs;
 #[cfg(windows)]
 use std::path::Path;
+use rand::RngExt;
 
 use indicatif::{ProgressBar, ProgressStyle};
 
